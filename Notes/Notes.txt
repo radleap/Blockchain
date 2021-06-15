@@ -1,0 +1,30 @@
+Digital Signature
+easy to verify
+Asymetric encryption
+-RSA
+-2 keys public, and private
+-When someone wants to send a message only read by you. 
+-Buy from visa, internet not secure, so the vendor sends their public key
+-You use the public key to encrypt a message, and those are sent via the internet
+-Vendor using the private key can turn it back into a number.
+-If intercepted, w/o the private key can not decrpyt.
+Digital Signature
+- owner of a private key to sign a message, same alorithm as above, use the
+- now share and a recipient can use the public key to encrypt the message, 
+- and get out the original message. And know you are the one to sign the message
+- The message we want to sign could be long, and we want a fixed length signature
+- We perform all on a hash of the message, hash function, which makes it shorter.
+- hash functions are the basic of a blockchain
+- makes a fingerprint of that message
+Crypto Connection
+- we are signing entries in a public ledger.
+- send 10 keys to A, I use my private key to sign it too recipient A.
+- A wants to spend, and in order to spend needs to prove own it.
+- So using the digital signature
+- can post verifiable statements to a public ledger
+
+Test Driven Development
+Write a test of the new functionalitty (which fails)
+- interface, and tests that only pass if it accomplishes what we want
+- our plan
+- write tests and our plan
