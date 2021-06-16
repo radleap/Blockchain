@@ -9,9 +9,11 @@
 This directory houses coding of a proof of work blockchain. 
 
 This includes the following:
+* Test Driven Development
 * Asymmetric Encryption
 * Digital Signatures
 * Verification of Digital Signatures
-* Test Driven Development
+* Blockchain implementation utilizing SHA256
+
 
 ![Blockchain future is coming][image1]

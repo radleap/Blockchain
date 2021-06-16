@@ -1,0 +1,41 @@
+Blockchain
+Hash Functions
+Blocks able to store any data that can be converted to a string
+Detect any tampering that has occured
+
+What is a hash function?
+Algorithm that converts a string of arbitrary length, and converts it to a 
+string of bits in a fixed length.
+Hashes are used to speed up in computer science.
+Cryptographic hashes need to be non-malleable. 
+non-malleable: Two inputs that are similar should not have a similar output. 
+Collision-resistant
+There are infinite inputs, but limited number of hashes. 
+So bound to be some collisions.
+The only way is to compute the hashes of many, many inputs functions until stumble on one.
+So different messages can compute to the same hash string, but should not be easy.
+The security of the blockchain depends on this.
+For  a good hash function, there's no easy way to "invert" the hash 
+(i.e. to find an input that produces a specific output).
+SHA256 hashing is used in our blockchain. 
+
+Hashes are great for speeding up search. I can divide up a long 
+list into sub-lists of elements that hash to the same value. Then, 
+when searching for a particular element, I hash that element to find 
+the particular sub-list to search. Note that, whereas for cryptography 
+we prefer fewer collisions, here we rely on collisions to reduce the total 
+number of lists.
+
+https://cryptography.io/en/latest/hazmat/primitives/cryptographic-hashes/
+
+A blockchain consists of blocks, which contain data and also the hash of the block
+that proceeded it. 
+When add a new hash and data, and then compute the hash of the 
+previous block, including its stored hash of the block before it. 
+Advantage is that tampering is very apparent.
+The modified data will cause the hash not to make in the next block. 
+So in order to get away with an attack, needs to attack all blocks. So tamper safe.
+
+
+
+
