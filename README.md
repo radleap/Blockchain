@@ -8,4 +8,10 @@
 
 This directory houses coding of a proof of work blockchain. 
 
+This includes the following:
+* Asymmetric Encryption
+* Digital Signatures
+* Verification of Digital Signatures
+* Test Driven Development
+
 ![Blockchain future is coming][image1]
