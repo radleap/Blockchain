@@ -1,0 +1,39 @@
+Transactions
+Create a transaction class 
+Transfer of coins from one public address to another
+Will sign and verify transactions 
+Teach transactions to verify self, and test
+- In the blockchain transaction ledger, your public key is your
+address, how others identify you in the blockchain ledger.
+- When coins are sent to your public address, the only way to get them out 
+is to use your private key to sign a transaction to send them somewhere else.
+- So when coins are sent to you, they are reserved to a public record
+in such a way the only way to transfer is to sign a transaction using your
+private key. 
+-A person may have many addresses, and long as you keep record then no problem.
+
+Multiple output addresses
+-transactions will store two lists, one for inputs and one for outputs.
+- to be valid will require a signature for each of the input addresses.
+Reasons:
+- better anonimty to use different addresses for each transaction
+- if someone wants to track your spending, then is harder
+
+Multi-signature Transactions
+- Coins should not move from an address without a transaction signed 
+by the corresponding private key
+- ability to require multiple signatures
+- everytime there is a coin moving via transaction, need a signature from the 
+private key that corresponds to that address.
+- require a signature from someone that doesn't require any coins - can be useful
+- consider the scenario of coin for goods. How to make sure either doesn't cheat each
+other.
+- Use a third party for an escrow transaction
+- Before good sent, a transaction can be released by the third party. The third party
+can only sign. party one will sign a transaction sending funds to 2nd party, but only
+valid from an additional signature from the third party. If 2nd doesn't deliver goods,
+then 3rd party not sign.
+
+
+
+

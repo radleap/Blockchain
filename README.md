@@ -14,6 +14,7 @@ This includes the following:
 * Digital Signatures
 * Verification of Digital Signatures
 * Blockchain implementation utilizing SHA256
+* Transaction Process implementing Digital Signatures and Verification
 
 
 ![Blockchain future is coming][image1]

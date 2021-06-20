@@ -39,12 +39,11 @@ def sign(message, private_key):
 
 def verify(message, signature, public_key):
     '''
-    Takes a message, received signature, and public key to verify message from the sender untampered.
+    Takes a message, digital_signature, and public key to verify message from the sender untampered.
     Returns True if verified, else False
     '''
 
     message = bytes(str(message), 'utf-8') # if message bytes converts to a string and then to bytes
-    public_key = private_key.public_key() # need to refactor the argument of function and this line.
     try:
         public_key.verify(
         signature,
@@ -93,3 +92,4 @@ if __name__=='__main__':
 ####################### resources ########################
 # https://cryptography.io/en/latest/hazmat/primitives/asymmetric/
 # https://cryptography.io/en/latest/hazmat/primitives/asymmetric/rsa/
+# public_key = private_key.public_key() # need to refactor the argument of function and this line.
