@@ -10,7 +10,7 @@
 # from cryptography.hazmat.primitives.asymmetric import padding
 # from cryptography.exceptions import InvalidSignature
 
-import signatures
+import signature
 
 class Tx:
     inputs = None #input addresses
@@ -38,7 +38,7 @@ class Tx:
     def sign(self, private_key):
         '''The signing user, signs using private_key creating signature'''
         message = self.__gather()
-        new_sig = signatures.sign(message, private_key) # returns signed message
+        new_sig = signature.sign(message, private_key) # returns signed message
         self.sigs.append(new_sig)
 
     def __gather(self):
@@ -63,7 +63,7 @@ class Tx:
         for public_key, amount in self.inputs:
             found = False
             for s in self.sigs:
-                if signatures.verify(message, s, public_key):
+                if signature.verify(message, s, public_key):
                     found = True
             if not found:
                 return False
@@ -73,7 +73,7 @@ class Tx:
         for public_key in self.reqd:
             found = False
             for s in self.sigs:
-                if signatures.verify(message, s, public_key):
+                if signature.verify(message, s, public_key):
                     found = True
             if not found:
                 return False
@@ -89,10 +89,10 @@ class Tx:
 
  #prevents it from running if loaded the module... if just invoke it as a python script will run the tests
 if __name__ == "__main__":
-    pr1, pu1 = signatures.generate_keys()
-    pr2, pu2 = signatures.generate_keys()
-    pr3, pu3 = signatures.generate_keys()
-    pr4, pu4 = signatures.generate_keys()
+    pr1, pu1 = signature.generate_keys()
+    pr2, pu2 = signature.generate_keys()
+    pr3, pu3 = signature.generate_keys()
+    pr4, pu4 = signature.generate_keys()
 
     Tx1 = Tx()
     Tx1.add_input(pu1,1)

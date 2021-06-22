@@ -7,7 +7,7 @@
 import pickle
 from cryptography.hazmat.primitives import serialization
 from blockchain import CBlock
-import signatures
+import signature
 import transaction
 
 class TxBlock(CBlock):
@@ -23,9 +23,9 @@ class TxBlock(CBlock):
 
  #prevents it from running if loaded the module... if just invoke it as a python script will run the tests
 if __name__ == "__main__":
-    pr1,pu1 = signatures.generate_keys()
-    pr2,pu2 = signatures.generate_keys()
-    pr3,pu3 = signatures.generate_keys()
+    pr1,pu1 = signature.generate_keys()
+    pr2,pu2 = signature.generate_keys()
+    pr3,pu3 = signature.generate_keys()
 
     Tx1 = transaction.Tx()
     Tx1.add_input(pu1,1)
@@ -36,18 +36,18 @@ if __name__ == "__main__":
         print("Success! Tx is valid")
 
     ###### saving via pickle of the transaction block
-    savefile = open("tx.dat","wb")
+    savefile = open("data/tx.dat","wb")
     pickle.dump(Tx1,savefile)
     savefile.close()
 
     #### loading and testing the transaction using the transaction.is_valid()
-    loadfile = open("tx.dat","rb")
+    loadfile = open("data/tx.dat","rb")
     newTx = pickle.load(loadfile)
     if newTx.is_valid():
         print("Success! Loaded Tx is valid")
     loadfile.close()
 
-    root = TxBlock(None) # cretae a root block
+    root = TxBlock(None) # cretae a root block, no parent
     root.addTx(Tx1)
 
     Tx2 = transaction.Tx() #transactions in root block
@@ -73,11 +73,11 @@ if __name__ == "__main__":
 
 
 
-    savefile = open("block.dat","wb")
+    savefile = open("data/block.dat","wb")
     pickle.dump(B1,savefile)
     savefile.close()
 
-    loadfile = open("block.dat","rb")
+    loadfile = open("data/block.dat","rb")
     load_B1 = pickle.load(loadfile)
     load_B1.is_valid()
 
