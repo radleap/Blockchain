@@ -9,18 +9,23 @@ from cryptography.hazmat.primitives import serialization
 from cryptography.hazmat.primitives import hashes
 from cryptography.hazmat.primitives.asymmetric import padding
 from cryptography.exceptions import InvalidSignature
-
+from cryptography.hazmat.primitives import serialization
 
 def generate_keys():
     '''
     This function uses RSA encryption with 2048 bits to create public and private key
+    Serializes the public key for pickle saving
     Returns two objects, the public key and the private key
     '''
     private_key = rsa.generate_private_key(
                         public_exponent = 65537,
                         key_size = 2048)
     public_key = private_key.public_key()
-    return(private_key, public_key)
+    #serializing for saving/loading of the public key
+    pu_ser = public_key.public_bytes(
+        encoding=serialization.Encoding.PEM,
+        format=serialization.PublicFormat.SubjectPublicKeyInfo)
+    return(private_key, pu_ser)
 
 
 def sign(message, private_key):
@@ -37,11 +42,13 @@ def sign(message, private_key):
     return(signature)
 
 
-def verify(message, signature, public_key):
+def verify(message, signature, pu_ser):
     '''
     Takes a message, digital_signature, and public key to verify message from the sender untampered.
+    Deserializes the public key that is loaded
     Returns True if verified, else False
     '''
+    public_key = serialization.load_pem_public_key(pu_ser) #loading the serialized pem public key
 
     message = bytes(str(message), 'utf-8') # if message bytes converts to a string and then to bytes
     try:

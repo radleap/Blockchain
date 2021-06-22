@@ -1,0 +1,28 @@
+Blockchain-based Transaction Ledger
+Securing a public transactions ledger
+- anyone should be able to quickly review the public ledger and totals
+- quickly verify digital signatures (transactions with the permission of the owner)
+- be reassured all transactions were added with the permission of coin owner
+- tamper proof - once committed to the ledger, very hard to go back and delete a transaction.
+- magic: transactions are collected in the blocks
+- then the hash of the previous block is computed and added to the current block.
+- then the entire block including the previous block hash, is published to the network.
+- everyone should have access to the ledger.
+- each new block has new transactions, and hash of previous
+
+- how coins come into existance? 
+- when a miner adds to a blckchain, collect block rewards which are newly minted coins 
+- genesis block
+- begin with a first block
+- contents and its hash are stored in the software itself
+- valid by definition and create coins out of thin air
+
+
+- signatures (generate keys, sign messages, and verify)
+- transactions (using the signature module, and has transactions can add inputs,outputs,
+- sign transactions, and check ask if valid)
+- blockchain module (creating the CBlock class, can compute its own hash,
+-  can store anytime, secured by storing the previous hash. Will store lists of 
+- transactions. It hashes the previous block and stores as its own data.)
+- Blockchain secured  
+
