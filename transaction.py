@@ -92,8 +92,8 @@ class Tx:
             if amount < 0:
                 return False
             total_out = total_out + amount
-        if total_out > total_in: #total in not less than total out
-            return False
+        # if total_out > total_in: #total in not less than total out -- moved to miner checking
+        #     return False
         return True
 
 #################### testing ######################

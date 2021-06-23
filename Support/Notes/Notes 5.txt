@@ -1,0 +1,126 @@
+Mining and Proof of Work
+- We have a blockchain that can store transactions.
+- The transactions are secured by digital signatures.
+- The blocks are secured by the hashes recorded in each block.
+- Not better than a traditional bank at this point.
+- Decentralized 
+- every user has their own copy of the blockchain
+- can publish transactions signed with their public key
+- assemble transactions into a block and add to the blockchain
+- assume many users with copies of blockchain, means any user can tell how many 
+coins are controlled by any public key in time.
+- to spend coins, the user signs the transaction, publishes and broadcasts to the
+rest of the network.
+- Also want to decentralize the adding of new blocks to the blockchain.
+Anyone to be able to take transactions, assemble to a block, and add.
+
+The Dark Side of Decentralization
+- Gives rise to potential problems caused by:
+- (1) moving information through network (2) Nefarious actors, trying to cheat people.
+- (1) with many miners adding blocks to a network, need a way to resolve it.
+Two blocks have the same parent. We can discussed a single linear blockchain, but if 
+two blocks are added at the same time, which is added first? A branch can occur, and
+hackers can take advantage of to steal coins. (if a user mines a block and leaves 
+out the spend, can prevent people from seeing the block, can try to spend again. CAn
+conceivably receive goods from 1 person, then spend again by sending to someone else.
+This is called "Double Spend Attack")
+
+Proof of Work
+- Add a branch to a old block and erase history, if persuasive.
+- We right code so that new blocks are only by miners
+added to the longest, verified chain.
+- So if there is an old block, it will be stored, but ignored.
+- A branch can be added near the same time that is not an attack, just occurs.
+- Different order at different nodes. 
+- If majority of miners are added to the longest chain, branches will be short/shortlived.
+- Our code must be open source so anyone can verify playing by the rules.
+- To keep secure and trustworthy.
+- Anyone can take the code, to modify it. If bad actors wanted to attack, could
+add blocks until the longest chain. Overwhelm the network with new block chains.
+- One solution is to have a network of nodes you trust, and only add blocks that you
+know are following the rules.
+- Establishing trust in an anonnymous and decentralized network is difficult, to arrive
+at concensus with the possiblity of some attacking nodes (byzantine generals problem).
+- Proof of work
+- to add a block the user is required to do some computational work.
+- Good proof of work algo:
+(1) must monopolize a real world resource (compute units or memory of system, or data)
+so that it is difficult for the submitting node.
+(2) the proof needs to be easily verifiable, and no repeated work that the miner did.
+(3) The amount of resource required for each block is variable over time.
+- in bitcoin beginning, could use a PC for a new block over a few hours.
+- today it takes 1000s of computers, to add a block in less than a day.
+- there is a rapid increase in people mining. 
+(4) Block content provides the starting point.
+The work needs to take the new block as its starting point. If work not connected
+to a specific block, an attacker can wait for a new block, copy the proof of work 
+and attach to its own. 
+- pre-computing the work is a problem IF the proof of work is not specific to a block.
+So there needs to be no chance of precomputation.
+
+Nonces
+- Bitcoin uses the energy of Switzerland
+- Bitcoin uses a cryptographic nonce
+- Hash, takes a string of any length, and produces a hash of a specific length.
+- Bitcoin involves adding some bits to the end of the new block - can be any bit
+- For the block to be valid, the hash of the block plus bits must have a number 
+of leading zeros. These extra bits are called the nonce.
+- The nonce is add to the pervious block hash, and data, to when hashed gives the
+needed leading zeros. 
+- What does this mean?
+- This process is called mining. The miner must (1) verify the transactions and
+(2) hash of the previous block are valid. That is the easy part. The work that 
+the miners do includes this, but is the easy part.
+- Miners spend resources try different nonces to find which gives the leading zeros
+in the hash. (this only occurs after verifying 1 and 2).
+- Once transaction in block are valid, trys a potential nonce. This is 
+hashed by the algorithm. If leading zeros are correct then done. Otherwise repeats.
+Once found, the new block is published to the block, including the found nonce,
+for addition to the blockchain. It can be trillions of nonces needed to check.
+- A malleable hash gives clues, but a non-malleable hash is needed to guess.
+- Is it easy to verify? Yes. A user can verify the nonce by doing 1 hash computation.
+- With nonce finding can vary the number of zeros. 
+- Finally, block data and nonce are hashed, so is the starting point. 
+What happens if two miners doing nearly the same?
+- need to constantly check for new transactions and new blocks. 
+- imagine two miners working on a new block with many of the same transactions.
+- One miner completes the block, the others need to make 2 changes
+(1) update the previous block hash of their new block so adding to the end of chain
+(2) need to remove any transactions that were included in the previous block.
+This would result in an invalid block.
+
+Why is a variable hardness needed?
+- To convince miners to do the work, and buy equipment, need a reward.
+- We allow the miner to deposit newly minted coins, to any public key they chose.
+- For our blockchain/coin, will allow to add transactions with no input at all,
+and output of 25 coins. The miner will probably chose to deposit in their account.
+- We run the risk of making too many coins, and making the number in circulation 
+unpredicatble.
+- The value of the coin relies on a limited number of them. 
+- To avoid, coins are created at approximately a constant rate.
+- Bitcoin produces about 25 coins every 10 minutes.
+- This is the emission rate. 
+- It is kept fairly constant by adjusting the number of
+zeros needed for a valid block.
+- if coins are created too quickly, usually means more miners are mining.
+In this case, all the nodes know to increase the number of leading zeros in the hash.
+- if the blocks are coming to slowly, like mining resources declining or doing
+some other kind of work, the leading zero is decreased to raise the emission rate
+back up.
+
+General
+- Verifying transactions is a trivial task. Mining must be much harder. 
+For bitcoin, mining is the much harder task of finding a 
+nonce to add to the block to produce leading zeros in the hash.
+
+- The "hardness" of the mining problem adjusts to keep the rate of new 
+blocks the same.
+
+-Cryptographic hashing is an essential part of nonce-finding, but other 
+valid proof-of-work algorithms do not involve hashing
+
+- There may be many nonces that produce the required number of leading 
+zeros for a given set of block data.
+
+- of offering a higher reward for miners, likely the miner adds to block. 
+- if negative would not add.
