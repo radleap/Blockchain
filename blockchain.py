@@ -35,6 +35,15 @@ class CBlock:
         hash = digest.finalize()
         return(hash)
 
+    def is_valid(self):
+        '''
+        Looks at the previous block, computes its hash.
+        Then compares to the stored previous hash
+        '''
+        if self.previousBlock == None:
+            return(True)
+        return self.previousBlock.computeHash() == self.previousHash
+
 # another class definition for B4 instance
 class someClass:
     string = None

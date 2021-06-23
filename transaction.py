@@ -4,12 +4,6 @@
 
 
 # importing
-# from cryptography.hazmat.primitives.asymmetric import rsa
-# from cryptography.hazmat.primitives import serialization
-# from cryptography.hazmat.primitives import hashes
-# from cryptography.hazmat.primitives.asymmetric import padding
-# from cryptography.exceptions import InvalidSignature
-
 import signature
 
 class Tx:
@@ -49,11 +43,28 @@ class Tx:
         data.append(self.reqd)
         return(data)
 
+    def __repr__(self):
+        '''This is called when converted to a string or  printed showing all transaction objects'''
+        repstr = "INPUTS:\n"
+        for from_address, amount in self.inputs:
+            repstr = repstr + str(amount) + " from " + str(from_address) + "\n"
+        repstr = repstr + "OUTPUTS:\n"
+        for to_address, amount in self.inputs:
+            repstr = repstr + str(amount) + " to " + str(to_address) + "\n"
+        repstr = repstr + "REQD:\n"
+        for address in self.reqd:
+            repstr = repstr + str(address) + "\n"
+        repstr = repstr + "SIGS:\n"
+        for s in self.sigs:
+            repstr = repstr + str(s) + "\n"
+        repstr = repstr + "END\n"
+        return(repstr)
+
     def is_valid(self):
         '''
         Validates all signatures using the data and public keys
         Validates that no negative transactions
-        Validate that total amount in greater than total amount out
+        Validate that total amount_in greater than total amount_out
         Validate tampering not occur
         '''
         total_in = 0
