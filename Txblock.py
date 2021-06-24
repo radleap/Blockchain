@@ -5,14 +5,23 @@
 
 # importing
 import pickle
+import time
+import random
 from cryptography.hazmat.primitives import serialization
+from cryptography.hazmat.primitives import hashes
 import blockchain
 import signature
 import transaction
+
 reward = 25.0
+leading_zeros = 2
+next_char_limit = 20
+
 class TxBlock(blockchain.CBlock):
+    nonce = None
     def __init__(self,previousBlock):
         super(TxBlock, self).__init__([],previousBlock)  #reference to the parent class of TXBlock which is CBlock; initialize data as []
+        self.nonce = "AAAAA"
     def addTx(self, Tx_in):
         self.data.append(Tx_in)
 
@@ -38,11 +47,37 @@ class TxBlock(blockchain.CBlock):
         if total_out - total_in - reward > 0.00000000001: # handling floatin point error, also limit transaction size
             return(False)
         return(True)
+    #defining Nonce
+    def good_nonce(self):
+        h1 = bytes(str(self.data), 'utf-8')
+        h2 = bytes(str(self.previousHash), 'utf-8')
+        h3 = bytes(str(self.nonce),'utf-8')
+
+        digest = hashes.Hash(hashes.SHA256())
+        digest.update(h1)
+        digest.update(h2)
+        digest.update(h3)
+        this_hash = digest.finalize()
+        # print(str(this_hash[:leading_zeros]) +" -- " str(bytes(''.join()))
+        return(this_hash[:leading_zeros] == bytes(''.join(['\x4f' for i in range(leading_zeros)]),'utf-8')) # '\00' is a zero hexidecimal character
+        # if this_hash[:leading_zeros] != bytes(''.join(['\x4f' for i in range(leading_zeros)]),'utf-8'): # '\00' is a zero hexidecimal character
+        #     return(False)
+        # return(int(this_hash[leading_zeros]) < next_char_limit)
+
+    def find_nonce(self):
+        '''generate random nonces and check if the nonce is good using good_nonce'''
+        for i in range(1000000):
+            self.nonce = ''.join(
+                        [chr(random.randint(0,255)) for i in range(10*leading_zeros)])
+            if self.good_nonce():
+                return(self.nonce)
+        return(None)
 
 #################### testing ######################
 
  #prevents it from running if loaded the module... if just invoke it as a python script will run the tests
 if __name__ == "__main__":
+    #################### testing ######################
     pr1,pu1 = signature.generate_keys()
     pr2,pu2 = signature.generate_keys()
     pr3,pu3 = signature.generate_keys()
@@ -52,19 +87,21 @@ if __name__ == "__main__":
     Tx1.add_output(pu2,1)
     Tx1.sign(pr1)
 
+    ########### Test 1 #############
     if Tx1.is_valid():
-        print("Success! Tx1 is valid")
+        print("Test 1: Success! Tx1 is valid")
 
     ###### saving via pickle of the transaction block
     savefile = open("data/tx.dat","wb")
     pickle.dump(Tx1,savefile)
     savefile.close()
 
-    #### loading and testing the transaction using the transaction.is_valid()
+    ########### Test 2 #############
+    # loading and testing the transaction using the transaction.is_valid()
     loadfile = open("data/tx.dat","rb")
     newTx = pickle.load(loadfile)
     if newTx.is_valid():
-        print("Success! Loaded newTx is valid")
+        print("Test 2: Success! Loaded newTx is valid")
     loadfile.close()
 
     root = TxBlock(None) # cretae a root block, no parent
@@ -91,6 +128,21 @@ if __name__ == "__main__":
     Tx4.sign(pr3)
     B1.addTx(Tx4)
 
+    ########### Test 3 #############
+    start = time.time() # grabbing CPU time
+    print("Nonce: ",B1.find_nonce())
+    elapsed = time.time() - start
+    print("Check: Elapse time: " + str(elapsed) + " seconds.")
+    if elapsed < 60:
+        print("Test 3: Error! Mining is too fast.")
+
+    ########### Test 4 #############
+    if B1.good_nonce():
+        print("Test 4: Success! Nonce is good!")
+    else:
+        print("Test 4: Error! Bad Nonce")
+
+
     savefile = open("data/block.dat","wb")
     pickle.dump(B1,savefile)
     savefile.close()
@@ -99,14 +151,21 @@ if __name__ == "__main__":
     load_B1 = pickle.load(loadfile)
     load_B1.is_valid()
 
-    print(bytes(str(load_B1.data), 'utf-8'))
+    # print(bytes(str(load_B1.data), 'utf-8')) # this prints all the data
 
     ##### THESE ARE TESTS FOR BLOCKS #########
+    Print("------ THESE ARE TESTS FOR BLOCKS -----")
     for b in [root, B1, load_B1, load_B1.previousBlock]:
         if b.is_valid():
             print("Success! Valid Block")
         else:
             print("Error! Bad Block")
+
+    # this allows the network to check
+    if B1.good_nonce():
+        print("Success! Nonce is good after save and load!")
+    else:
+        print("Error! Bad Nonce after loading.")
 
     # This should throw an error - transaction output exceeds input
     B2 = TxBlock(B1)
