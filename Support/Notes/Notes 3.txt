@@ -1,4 +1,5 @@
 Transactions
+
 Create a transaction class 
 Transfer of coins from one public address to another
 Will sign and verify transactions 

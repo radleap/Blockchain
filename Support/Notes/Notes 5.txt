@@ -1,4 +1,5 @@
 Mining and Proof of Work
+
 - We have a blockchain that can store transactions.
 - The transactions are secured by digital signatures.
 - The blocks are secured by the hashes recorded in each block.

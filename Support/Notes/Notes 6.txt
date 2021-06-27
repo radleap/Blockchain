@@ -1,0 +1,27 @@
+Communicating With Peers
+- IP address, DNS, routing, ISP, gateway, devices
+- router assigning IP addresses
+- PC lots of apps communicating with the internet
+- port numbers
+- We will specify the specific port number for the crypto wallet
+- TCP/IP - protocols for communicating data (Transmision Control Protocol -
+handles the packets of data and ensuring arrive, integrity). There are different
+protocols, and confirms delivery.
+- IP handles the routing, the right location through servers.
+
+Client / Server
+- how socket communication works
+- a software object we use for internet communication is a socket
+- stores information necessary to communicate between 2 devices, facilitate
+- Server/client model
+- server listens for connection from a client (can be a simple echo server)
+- Server needs a socket, bind to an IP address and port number), then set the 
+server socket to listen, until a client conncets, accepts it, and receives the 
+data, and can send back data. 
+- When the server accepts the connection, it creates a new socket so it can
+receive and send.
+
+- client side creates the socket, and connects to an IP address/port number. Simpler.
+
+- The server socket sees a match, and accepts. 
+- After operating full, the client then closes.

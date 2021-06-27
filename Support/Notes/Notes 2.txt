@@ -1,5 +1,7 @@
 Blockchain
+
 Hash Functions
+
 Blocks able to store any data that can be converted to a string
 Detect any tampering that has occured
 

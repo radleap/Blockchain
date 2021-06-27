@@ -1,4 +1,5 @@
 Blockchain-based Transaction Ledger
+
 Securing a public transactions ledger
 - anyone should be able to quickly review the public ledger and totals
 - quickly verify digital signatures (transactions with the permission of the owner)

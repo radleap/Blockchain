@@ -16,7 +16,8 @@ This includes the following:
 * Blockchain implementation utilizing SHA256
 * Transaction Process implementing Digital Signatures and Verification
 * Blockchain and Transaction Class Integration (verification and testing)
-* Miner Rewards and Transaction Fees
+* Miner Rewards and Transaction Fees in Transaction Block
+* Server and Client
 
 
 ![Blockchain future is coming][image1]
