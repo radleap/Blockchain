@@ -13,10 +13,9 @@ def sendBlock(ip_address,blk):
     # needs a bytes type object
     data = pickle.dumps(blk)
     s.send(data)
+    s.close()
     #data = s.recv(BUFFER_SIZE)
     return False
-
-
 
 if __name__ == "__main__":
     #generating generate_keys
@@ -41,7 +40,9 @@ if __name__ == "__main__":
     B1.addTx(Tx1)
     B1.addTx(Tx2)
 
-    sendBlock('localhost',B1) # use internal IP addresss
+    #sendBlock('localhost',B1) # use internal IP addresss
+    sendBlock('localhost', B1)
+    #sendBlock('192.168.56.1', Tx2) #192.168.56.1
 
 
 

@@ -6,12 +6,17 @@ import pickle
 TCP_PORT = 5002
 BUFFER_SIZE = 1024
 
-def RecvObj(ip_address):
+def newConnection(ip_address):
+    # allowing for multiple connections
+    # each time connect to a client make a new socket
     s = socket.socket(socket.AF_INET,socket.SOCK_STREAM) # AF_INET using IPV4, can use 6... SOC_STREAM = TCP using
     s.bind((ip_address,TCP_PORT))
     s.listen()
-    new_sock,addr = s.accept()
+    return(s)
 
+def RecvObj(socket):
+    new_sock,addr = socket.accept()
+    # handling datat size limits
     all_data = b''
     while True:
         data = new_sock.recv(BUFFER_SIZE)
@@ -22,7 +27,8 @@ def RecvObj(ip_address):
     return(pickle.loads(all_data))
 
 if __name__ == "__main__":
-    newB =RecvObj('localhost')
+    s = newConnection('localhost')
+    newB =RecvObj(s)
     print(newB.data[0])
     print(newB.data[1])
     #check
@@ -49,7 +55,6 @@ if __name__ == "__main__":
         print("Error! Wrong input value for block 1, Tx 1")
 
     # checking some transactions
-    #input
     if newB.data[1].inputs[1][1] == 1.0:
         print("Success! Input value matches.")
     else:
@@ -58,7 +63,8 @@ if __name__ == "__main__":
         print("Success! Output value matches.")
     else:
         print("Error! Wrong Output value for block 1, Tx 2")
-
+    # newTx = RecvObj('localhost')
+    # print(newTx)
 
 # import socket
 #
