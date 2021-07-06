@@ -1,26 +1,37 @@
 
 import socket
 import Txblock
-TCP_PORT = 5004
+import pickle
+
+TCP_PORT = 5002
+BUFFER_SIZE = 1024
 
 def RecvObj(ip_address):
     s = socket.socket(socket.AF_INET,socket.SOCK_STREAM) # AF_INET using IPV4, can use 6... SOC_STREAM = TCP using
     s.bind((ip_address,TCP_PORT))
     s.listen()
     new_sock,addr = s.accept()
-    return(new_sock.recv())
+
+    all_data = b''
+    while True:
+        data = new_sock.recv(BUFFER_SIZE)
+        if not data:
+            break
+        else:
+            all_data = all_data + data
+    return(pickle.loads(all_data))
 
 if __name__ == "__main__":
     newB =RecvObj('localhost')
+    print(newB.data[0])
     print(newB.data[1])
-    print(newB.data[2])
     #check
     if newB.is_valid():
         print("Success! Tx is valid.")
     else:
         print("Error! Tx NOT valid.")
     # checking some transactions
-    #input
+    #input and output
     if newB.data[0].inputs[0][1] == 2.3:
         print("Success! Input value matches.")
     else:

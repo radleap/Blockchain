@@ -4,14 +4,16 @@ import signature
 import pickle
 import socket
 
-TCP_PORT = 5004
+TCP_PORT = 5002
+# BUFFER_SIZE = 1024
 
 def sendBlock(ip_address,blk):
     s = socket.socket(socket.AF_INET,socket.SOCK_STREAM) # AF_INET using IPV4, can use 6... SOC_STREAM = TCP using
     s.connect((ip_address,TCP_PORT))
-
-    s.send(blk)
-    data = s.recv(BUFFER_SIZE)
+    # needs a bytes type object
+    data = pickle.dumps(blk)
+    s.send(data)
+    #data = s.recv(BUFFER_SIZE)
     return False
 
 
